@@ -1,0 +1,1 @@
+weknow = angular.module('weknow', [])
