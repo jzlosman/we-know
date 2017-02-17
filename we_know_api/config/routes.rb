@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  namespace :api do
+  namespace :api, :defaults => {:format => :json} do
     resources :users, :only => [:show]
   end
   # The priority is based upon order of creation: first created -> highest priority.

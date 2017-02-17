@@ -1,6 +1,6 @@
 require 'controllers/test_controller'
 
-class Api::UsersControllerTest < TestController
+class API::UsersControllerTest < TestController
   setup do
     @user = FactoryGirl.create(:user)
   end
