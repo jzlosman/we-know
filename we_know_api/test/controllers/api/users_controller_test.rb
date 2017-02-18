@@ -25,6 +25,13 @@ class API::UsersControllerTest < TestController
     assert_includes user_response[:errors][:email], "can't be blank"
   end
 
+  test "cannot create a user with a duplicate auth_token" do
+    auth_token_test = "abc"
+    FactoryGirl.create(:user, auth_token: auth_token_test)
+    user = FactoryGirl.create(:user, auth_token: auth_token_test)
+    assert_not_equal user.auth_token, auth_token_test
+  end
+
   # UPDATE
   test "when successfully updating user" do
     user = FactoryGirl.create :user
