@@ -7,6 +7,7 @@ class API::UsersControllerTest < TestController
     get :show, id: user.id, format: :json
     result = JSON.parse(response.body, symbolize_names: true)
     assert_equal user.id, result[:id]
+    assert_nil result[:auth_token]
   end
 
   # CREATE

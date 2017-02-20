@@ -2,8 +2,11 @@ Rails.application.routes.draw do
   use_doorkeeper
   devise_for :users
   namespace :api, :defaults => {:format => :json} do
-    resources :users, :only => [:show, :create, :update, :destroy]
+    resources :users, :only => [:show, :create, :update, :destroy] do
+      resources :facts, :only => [:create, :update, :destroy]
+    end
     resources :sessions, :only => [:create, :destroy]
+    resources :facts, :only => [:index, :show]
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

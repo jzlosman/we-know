@@ -3,7 +3,8 @@ class API::UsersController < ApplicationController
   before_action :authenticate_with_token!, only: [:update, :destroy]
 
   def show
-    respond_with User.find(params[:id])
+    user = User.find(params[:id])
+    respond_with user, except: [:auth_token]
   end
 
   def create
