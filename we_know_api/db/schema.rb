@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170220193455) do
+ActiveRecord::Schema.define(version: 20170221130021) do
 
   create_table "facts", force: :cascade do |t|
     t.string   "title",       limit: 255,   default: ""
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20170220193455) do
     t.integer  "user_id",     limit: 4
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
+    t.date     "created_on"
   end
 
   add_index "facts", ["user_id"], name: "index_facts_on_user_id", using: :btree
@@ -101,8 +102,21 @@ ActiveRecord::Schema.define(version: 20170220193455) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "votes", force: :cascade do |t|
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "user_id",    limit: 4
+    t.integer  "fact_id",    limit: 4
+    t.date     "created_on"
+  end
+
+  add_index "votes", ["fact_id"], name: "fk_rails_089f09aba4", using: :btree
+  add_index "votes", ["user_id"], name: "fk_rails_c9b3bef597", using: :btree
+
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_grants", "users", column: "resource_owner_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_tokens", "users", column: "resource_owner_id"
+  add_foreign_key "votes", "facts"
+  add_foreign_key "votes", "users"
 end
