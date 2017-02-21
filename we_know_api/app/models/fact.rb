@@ -1,6 +1,6 @@
 class Fact < ActiveRecord::Base
   validates :title, :description, :user_id, presence: true
-  validate :only_one_fact_per_day
+  validate :only_one_fact_per_day, :on => :create
   belongs_to :user
   has_many :links
 
