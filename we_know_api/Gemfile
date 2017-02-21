@@ -22,6 +22,9 @@ gem 'active_model_serializers'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+# used to create Link Previews from URLs
+gem 'link_thumbnailer'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 
