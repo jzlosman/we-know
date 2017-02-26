@@ -3,6 +3,7 @@ class Fact < ActiveRecord::Base
   validate :only_one_fact_per_day, :on => :create
   belongs_to :user
   has_many :links
+  has_many :votes
 
   scope :today, lambda { where(created_on: Date.today) }
   scope :byUser, lambda { |user_id|

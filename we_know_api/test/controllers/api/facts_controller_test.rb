@@ -28,6 +28,16 @@ class API::FactsControllerTest < ActionController::TestCase
     assert_equal result[:title], fact[:title], "name should match on create"
   end
 
+  test "create should error if attempt create 2 in one day" do
+    user = FactoryGirl.create(:user)
+    request.headers['Authorization'] =  user.auth_token
+    fact = FactoryGirl.attributes_for :fact
+    post :create, { user_id: user.id, fact: fact }, format: :json
+    post :create, { user_id: user.id, fact: fact }, format: :json
+    result = JSON.parse(response.body, symbolize_names: true)
+    assert_equal result[:status], 422
+  end
+
   test "update should change a fact" do
     user = FactoryGirl.create(:user)
     fact = FactoryGirl.create(:fact, user: user)
