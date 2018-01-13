@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170221130021) do
+ActiveRecord::Schema.define(version: 20170226202547) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "label",       limit: 255
+    t.string   "description", limit: 255
+    t.string   "color",       limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
 
   create_table "facts", force: :cascade do |t|
     t.string   "title",       limit: 255,   default: ""
@@ -25,6 +33,16 @@ ActiveRecord::Schema.define(version: 20170221130021) do
   end
 
   add_index "facts", ["user_id"], name: "index_facts_on_user_id", using: :btree
+
+  create_table "groups", force: :cascade do |t|
+    t.integer  "category_id", limit: 4
+    t.integer  "fact_id",     limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "groups", ["category_id"], name: "index_groups_on_category_id", using: :btree
+  add_index "groups", ["fact_id"], name: "index_groups_on_fact_id", using: :btree
 
   create_table "links", force: :cascade do |t|
     t.string   "title",       limit: 255

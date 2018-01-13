@@ -3,7 +3,11 @@ class API::FactsController < ApplicationController
   respond_to :json
 
   def index
-    respond_with Fact.all
+    facts = Fact
+    if(params[:categories_id])
+      facts.by_categories([params[:categories_id]])
+    end
+    respond_with facts.by_categories([params[:categories_id]]).all
   end
 
   def show

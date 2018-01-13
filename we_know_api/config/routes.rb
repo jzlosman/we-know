@@ -10,6 +10,10 @@ Rails.application.routes.draw do
       resources :votes, :only => [:create, :update, :index]
     end
 
+    resources :categories, :only => [:index, :show] do
+      get 'facts', to: :index, controller: 'facts'
+    end
+
     resources :votes, :only => [:show, :destroy]
   end
   # The priority is based upon order of creation: first created -> highest priority.
